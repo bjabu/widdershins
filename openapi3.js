@@ -33,7 +33,9 @@ function convertToToc(source,data) {
                 method.verb = m;
                 method.path = p;
                 method.pathParameters = source.paths[p].parameters;
-                var sMethodUniqueName = (method.operation.operationId ? method.operation.operationId : m + '_' + p).split('/').join('_');
+                // TODO: Replacing '/' with '_' made the links in Shins crash!   / Bjarne
+                // var sMethodUniqueName = (method.operation.operationId ? method.operation.operationId : m + '_' + p).split('/').join('_');
+                var sMethodUniqueName = (method.operation.operationId ? method.operation.operationId : m + '_' + p).split('/').join('-');
                 sMethodUniqueName = sMethodUniqueName.split(' ').join('_'); // TODO {, } and : ?
                 if (data.options.tocSummary && method.operation.summary) {
                     sMethodUniqueName = method.operation.summary;
