@@ -293,7 +293,7 @@ function schemaToArray(schema,offset,options,data) {
             //console.warn(entry.safeType);
         }
 
-        entry.required = (parent.required && parent.required.indexOf(entry.name)>=0);
+        entry.required = (parent.required && Array.isArray(parent.required) && parent.required.indexOf(entry.name)>=0);
         if (typeof entry.required === 'undefined') entry.required = false;
 
         if (typeof entry.type === 'undefined') {
@@ -341,11 +341,13 @@ function getSampleInner(orig,options,samplerOptions,api){
             }
         }
         catch (ex) {
-            if (!options.samplerErrors.has(ex.message)) {
+            if (options.samplerErrors.has(ex.message)) {
+                process.stderr.write('.');
+            }
+            else {
                 console.error('# sampler ' + ex.message);
                 options.samplerErrors.set(ex.message,true);
             }
-            else process.stderr.write('.');
             if (options.verbose) {
                 console.error(ex);
             }
@@ -355,11 +357,13 @@ function getSampleInner(orig,options,samplerOptions,api){
                 if (typeof sample !== 'undefined') return sample;
             }
             catch (ex) {
-                if (!options.samplerErrors.has(ex.message)) {
+                if (options.samplerErrors.has(ex.message)) {
+                    process.stderr.write('.');
+                }
+                else {
                     console.warn('# sampler 2nd error ' + ex.message);
                     options.samplerErrors.set(ex.message,true);
                 }
-                else process.stderr.write('.');
             }
         }
     }
