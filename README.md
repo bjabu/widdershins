@@ -14,6 +14,10 @@ OpenAPI / Swagger / AsyncAPI / Semoasa definition to [Slate](https://github.com/
 
 ![Widdershins screenshot](https://mermade.github.io/widdershins/screenshot.png)
 
+### DNB adjustments
+This fork of widdershins has some modifications:
+* Auto generated links made the app crash in some cases when a "-" was used
+
 ### News
 
 * As of v3.0.0 Widdershins no longer expands the definition of OpenAPI body parameters / requestBodies by default, unless they have an inline schema. You can restore the old behaviour by using the `--expandBody` option.
